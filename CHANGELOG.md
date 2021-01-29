@@ -28,10 +28,6 @@ _TBD_
 
 - Updated the table to include all 4 metics.
 
-### Fixed
-
-- Fixed the statement metric in the table (it displayed line metric)
-
 ## [1.2.0] 2020-09-08
 
 ### Changed
