@@ -76,7 +76,7 @@ describe('functions', () => {
       metric: { lines: { rate }, level: 'red' },
     })).toStrictEqual({
       state: 'failure',
-      description: `Error: Too low coverage - ${rate}%`,
+      description: `Error: Too low lines coverage - ${rate}%`,
       target_url: targetUrl,
       context: statusContext,
     });
@@ -84,10 +84,11 @@ describe('functions', () => {
     expect(parser.generateStatus({
       targetUrl,
       statusContext,
-      metric: { lines: { rate }, level: 'yellow' },
+      metric: { statements: { rate }, level: 'yellow' },
+      thresholdMetric: 'statements',
     })).toStrictEqual({
       state: 'success',
-      description: `Warning: low coverage - ${rate}%`,
+      description: `Warning: low statements coverage - ${rate}%`,
       target_url: targetUrl,
       context: statusContext,
     });
@@ -95,10 +96,11 @@ describe('functions', () => {
     expect(parser.generateStatus({
       targetUrl,
       statusContext,
-      metric: { lines: { rate }, level: 'green' },
+      metric: { branches: { rate }, level: 'green' },
+      thresholdMetric: 'branches',
     })).toStrictEqual({
       state: 'success',
-      description: `Success: Coverage - ${rate}%`,
+      description: `Success: branches coverage - ${rate}%`,
       target_url: targetUrl,
       context: statusContext,
     });

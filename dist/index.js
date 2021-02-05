@@ -11961,14 +11961,17 @@ function generateTable({
 }
 
 function generateStatus({
-  metric: { level, lines: { rate } },
+  metric,
   targetUrl,
   statusContext,
+  thresholdMetric = DEFAULT_THRESHOLD_METRIC,
 }) {
+  const level = metric.level;
+  const {rate} = metric[thresholdMetric];
   if (level === 'red') {
     return {
       state: 'failure',
-      description: `Error: Too low coverage - ${rate}%`,
+      description: `Error: Too low ${thresholdMetric} coverage - ${rate}%`,
       target_url: targetUrl,
       context: statusContext,
     };
@@ -11977,7 +11980,7 @@ function generateStatus({
   if (level === 'yellow') {
     return {
       state: 'success',
-      description: `Warning: low coverage - ${rate}%`,
+      description: `Warning: low ${thresholdMetric} coverage - ${rate}%`,
       target_url: targetUrl,
       context: statusContext,
     };
@@ -11985,7 +11988,7 @@ function generateStatus({
 
   return {
     state: 'success',
-    description: `Success: Coverage - ${rate}%`,
+    description: `Success: ${thresholdMetric} coverage - ${rate}%`,
     target_url: targetUrl,
     context: statusContext,
   };
