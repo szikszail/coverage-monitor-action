@@ -6,3 +6,7 @@
 # Node modules
 /node_modules/
 /logs
+
+# Ignore built ts files
+tests/runner/*
+lib/**/*
